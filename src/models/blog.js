@@ -1,15 +1,20 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const blogSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
+    date: {
+      type: Date,
       required: true,
+      default: Date.now,
     },
-    category: {
+    age: {
+      type: Number,
+      required: true,
+      max: 100,
+    },
+    gender: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -18,21 +23,17 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     description: {
-      type: String,
+      type: String, // Changed to String to store textual descriptions
       required: true,
-      maxlength: 500,
     },
     avatar: {
       type: String,
       required: true,
     },
-    coverimage: {
-      type: String,
-      default: "",
-    },
   },
-  { timestamps: true }
+  { timestamps: true } // Automatically adds createdAt and updatedAt timestamps
 );
 
-const Blog = mongoose.model("Blog", userSchema);
-module.exports = Blog;
+// Export the model
+const Blog = mongoose.model("Blog", blogSchema);
+export { Blog };

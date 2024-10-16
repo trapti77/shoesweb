@@ -1,26 +1,28 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Smooth scrolling for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute("href")).scrollIntoView({
-        behavior: "smooth",
-      });
-    });
-  });
+function showDetails(member) {
+  const details = document.getElementById("details");
+  const detailInfo = document.getElementById("detail-info");
 
-  // Simple animation for products
-  const products = document.querySelectorAll(".product");
-  products.forEach((product, index) => {
-    setTimeout(() => {
-      product.style.opacity = "0";
-      product.style.transform = "translateY(20px)";
-      product.style.transition = "opacity 0.5s, transform 0.5s";
+  switch (member) {
+    case "john":
+      detailInfo.innerText =
+        "John Doe is the visionary behind ShoeStyle. With a passion for fashion and a keen business sense, he leads the team to new heights.";
+      break;
+    case "jane":
+      detailInfo.innerText =
+        "Jane Smith, our head designer, brings creativity and innovation to every collection. Her designs are inspired by the latest trends.";
+      break;
+    case "alex":
+      detailInfo.innerText =
+        "Alex Johnson manages our marketing strategies, ensuring ShoeStyle reaches customers worldwide with impactful campaigns.";
+      break;
+    default:
+      detailInfo.innerText = "";
+  }
 
-      setTimeout(() => {
-        product.style.opacity = "1";
-        product.style.transform = "translateY(0)";
-      }, 100);
-    }, index * 200);
-  });
-});
+  details.style.display = "flex";
+}
+
+function closeDetails() {
+  const details = document.getElementById("details");
+  details.style.display = "none";
+}

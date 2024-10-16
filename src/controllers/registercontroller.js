@@ -1,5 +1,5 @@
-const Register = require("../models/register.js");
-const bcrypt = require("bcryptjs");
+import { Register } from "../models/register.js";
+import bcrypt from "bcryptjs";
 
 const showRegisterForm = (req, res) => {
   res.render("register");
@@ -69,4 +69,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { showRegisterForm, registerUser, showLoginForm, loginUser };
+const homePage = async (rq, res) => {
+  res.render("index");
+};
+export { showRegisterForm, registerUser, showLoginForm, loginUser, homePage };

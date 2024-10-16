@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Blog Post</title>
+</head>
+
+<body>
+    <h1>Create a New Blog Post</h1>
+    <!-- Add enctype="multipart/form-data" to handle file uploads -->
+    <form action="/addblog" method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="date">Date:</label>
+            <input type="number" id="date" name="date" required>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <textarea id="age" name="age" required></textarea>
+        </div>
+        <div>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" required>
+        </div>
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+        </div>
+
+        <!-- Add an image upload button -->
+        <div>
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="avatar" accept="image/*" required>
+        </div>
+
+        <button type="submit">Add Blog Post</button>
+    </form>
+</body>
+
+</html>
