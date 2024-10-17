@@ -9,6 +9,7 @@ import productRoute from "./routes/product.route.js";
 import searchRoutes from "./routes/search.route.js";
 import { fileURLToPath } from "url";
 import { connectDB } from "./db/conn.js"; // Import connectDB function
+import paymentRoutes from "./routes/payment.route.js";
 
 // Create the equivalent of __dirname in ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -35,6 +36,7 @@ app.use("/", aboutRoutes);
 app.use("/", shopRoutes);
 app.use("/", productRoute);
 app.use("/", searchRoutes);
+app.use("/", paymentRoutes);
 
 // Connect to the MongoDB database
 connectDB()

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Payment Information</h1>
+        <form action="/submit-payment" method="POST">
+            <!-- Contact Details -->
+            <h2>Contact Details</h2>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="contactDetails.email" required>
+
+            <label for="newsletter">
+                <input type="checkbox" id="newsletter" name="contactDetails.newsletter">
+                Subscribe to news and offers
+            </label>
+
+            <!-- Delivery Address -->
+            <h2>Delivery Address</h2>
+            <label for="country">Country</label>
+            <input type="text" id="country" name="deliveryAddress.country" required>
+
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="deliveryAddress.firstName" required>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="deliveryAddress.lastName" required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="deliveryAddress.address" required>
+
+            <label for="apartment">Apartment (optional)</label>
+            <input type="text" id="apartment" name="deliveryAddress.apartment">
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="deliveryAddress.city" required>
+
+            <label for="state">State</label>
+            <input type="text" id="state" name="deliveryAddress.state" required>
+
+            <label for="pinCode">Postal Code</label>
+            <input type="text" id="pinCode" name="deliveryAddress.pinCode" required>
+
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="deliveryAddress.phone" required>
+
+            <!-- Billing Address -->
+            <h2>Billing Address</h2>
+            <label>
+                <input type="checkbox" id="sameAsShipping" name="billingAddress.sameAsShipping" checked>
+                Same as delivery address
+            </label>
+
+            <div id="billingAddressFields">
+                <!-- These fields will be optional if `sameAsShipping` is checked -->
+                <label for="billingCountry">Country</label>
+                <input type="text" id="billingCountry" name="billingAddress.country">
+
+                <label for="billingFirstName">First Name</label>
+                <input type="text" id="billingFirstName" name="billingAddress.firstName">
+
+                <label for="billingLastName">Last Name</label>
+                <input type="text" id="billingLastName" name="billingAddress.lastName">
+
+                <label for="billingAddress">Address</label>
+                <input type="text" id="billingAddress" name="billingAddress.address">
+
+                <label for="billingApartment">Apartment (optional)</label>
+                <input type="text" id="billingApartment" name="billingAddress.apartment">
+
+                <label for="billingCity">City</label>
+                <input type="text" id="billingCity" name="billingAddress.city">
+
+                <label for="billingState">State</label>
+                <input type="text" id="billingState" name="billingAddress.state">
+
+                <label for="billingPinCode">Postal Code</label>
+                <input type="text" id="billingPinCode" name="billingAddress.pinCode">
+            </div>
+
+            <!-- Shipping Method -->
+            <h2>Shipping Method</h2>
+            <label for="shippingMethod">Select Shipping Method</label>
+            <select id="shippingMethod" name="shippingMethod.method" required>
+                <option value="Standard">Standard</option>
+                <option value="Express">Express</option>
+            </select>
+
+            <input type="hidden" id="shippingCost" name="shippingMethod.cost" value="200">
+
+            <!-- Payment Method -->
+            <h2>Payment Method</h2>
+            <label for="paymentMethod">Select Payment Method</label>
+            <select id="paymentMethod" name="paymentMethod.method" required>
+                <option value="Card">Credit/Debit Card</option>
+                <option value="UPI">UPI</option>
+                <option value="Wallet">Wallet</option>
+                <option value="BNPL">Buy Now Pay Later</option>
+                <option value="COD">Cash on Delivery</option>
+            </select>
+
+            <!-- Payment Details -->
+            <div id="paymentDetails">
+                <label for="cardNumber">Card Number (if paying by card)</label>
+                <input type="text" id="cardNumber" name="paymentMethod.details.cardNumber">
+
+                <label for="upiId">UPI ID (if paying by UPI)</label>
+                <input type="text" id="upiId" name="paymentMethod.details.upiId">
+
+                <label for="walletId">Wallet ID (if paying by Wallet)</label>
+                <input type="text" id="walletId" name="paymentMethod.details.walletId">
+
+                <label for="bnplProvider">BNPL Provider (if using Buy Now Pay Later)</label>
+                <input type="text" id="bnplProvider" name="paymentMethod.details.bnplProvider">
+            </div>
+
+            <!-- Order Summary -->
+            <h2>Order Summary</h2>
+            <label for="subtotal">Subtotal</label>
+            <input type="text" id="subtotal" name="orderSummary.subtotal" value="4995" readonly>
+
+            <label for="tax">Tax</label>
+            <input type="text" id="tax" name="orderSummary.tax" value="761.95" readonly>
+
+            <label for="shippingCost">Shipping Cost</label>
+            <input type="text" id="shippingCostDisplay" value="200" readonly>
+
+            <label for="total">Total</label>
+            <input type="text" id="total" name="orderSummary.total" value="5956.95" readonly>
+
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+
+    <script src="/js/payment.js"></script>
+</body>
+
+</html>
