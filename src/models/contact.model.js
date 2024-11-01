@@ -28,8 +28,14 @@ const ContactSchema = new Schema(
       required: true,
       maxlength: 1000,
     },
+    status: {
+      type: String,
+      enum: ["new", "read", "resolved"],
+      default: "new",
+    },
   },
   { timestamps: true }
 );
 
-export const Contact = mongoose.model("Contact", ContactSchema);
+const Contact = mongoose.model("Contact", ContactSchema);
+export { Contact };

@@ -2,29 +2,20 @@ import mongoose from "mongoose";
 
 const blogSchema = new mongoose.Schema(
   {
-    date: {
-      type: Date,
+    title: { type: String, required: true },
+    content: { type: String, required: true },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
-      default: Date.now,
     },
-    age: {
-      type: Number,
-      required: true,
-      max: 100,
-    },
-    gender: {
+    category: { type: String, required: true },
+    tags: [String],
+    thumbnail: { type: String },
+    status: {
       type: String,
-      required: true,
-      lowercase: true,
-      trim: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String, // Changed to String to store textual descriptions
-      required: true,
+      enum: ["draft", "published"],
+      default: "draft",
     },
     avatar: {
       type: String,

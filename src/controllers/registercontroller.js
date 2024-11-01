@@ -1,6 +1,82 @@
 import { Register } from "../models/register.js";
+import { ApiError } from "../utils/apierror.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiResponse } from "../utils/apiresponse.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import mongoose, { syncIndexes } from "mongoose";
+const generateAccessTokenandRefreshToken = async (userId) => {
+  try {
+    //find user by userid
+    const user = await Register.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+    //generate access and refresh token
+    const accessToken = user.generateAccessToken();
+    //console.log(refreshToken)
+    const refreshToken = user.generateRefreshToken();
+    //console.log(refreshToken)
+    user.refreshToken = refreshToken; //put this refresh token into user database
+    await user.save({ validateBeforeSave: false }); //save the refresh token in user database without validation(password)
 
+    //return kr denge accesstoken and refreshtoken
+    return { accessToken, refreshToken };
+  } catch (error) {
+    console.error("Error generating tokens:", error.message);
+    throw new ApiError(
+      500,
+      "something went wrong while generating refresh and access token"
+    );
+  }
+};
+const refreshAccessToken = asyncHandler(async (req, res) => {
+  //we are access refresh token from cookies
+  const IncomingRefreshToken =
+    req.cookies.refreshToken || req.body.refreshToken;
+
+  if (!IncomingRefreshToken) {
+    throw new ApiError(401, "unathorized request");
+  }
+  try {
+    //verify incoming token
+    const decodedToken = jwt.verify(
+      IncomingRefreshToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+    const user = await Register.findById(decodedToken?._id);
+    if (!user) {
+      throw new ApiError(401, "invalid refresh token");
+    }
+    //match tokens
+    if (IncomingRefreshToken !== user?.refreshToken) {
+      throw new ApiError(401, "refresh token is expired or used");
+    }
+
+    //generate new token or refresh token
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+
+    const { accessToken, newrefreshToken } =
+      await generateAccessTokenandRefreshToken(user._id);
+
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", newrefreshToken, options)
+      .json(
+        new ApiResponse(
+          200,
+          { accessToken, refreshToken: newrefreshToken },
+          "access token refreshed successfully"
+        )
+      );
+  } catch (error) {
+    throw new ApiError(401, error?.message || "inavlid refresh token");
+  }
+});
 const showRegisterForm = (req, res) => {
   res.render("register");
 };
@@ -72,4 +148,16 @@ const loginUser = async (req, res) => {
 const homePage = async (rq, res) => {
   res.render("index");
 };
-export { showRegisterForm, registerUser, showLoginForm, loginUser, homePage };
+const blogPage = asyncHandler(async (req, res) => {
+  res.render("blog");
+});
+export {
+  showRegisterForm,
+  registerUser,
+  showLoginForm,
+  loginUser,
+  homePage,
+  generateAccessTokenandRefreshToken,
+  refreshAccessToken,
+  blogPage,
+};

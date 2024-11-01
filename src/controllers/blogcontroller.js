@@ -1,6 +1,6 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
+/*import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apierror.js";
-import { Blog } from "../models/blog.js";
+//import { Blog } from "../models/blog.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiresponse.js";
 import { Contact } from "../models/contact.model.js";
@@ -82,14 +82,6 @@ const createBlog = asyncHandler(async (req, res) => {
   }
 
   const avatarlocalpath = req.files?.avatar?.[0]?.path;
-  /*let coverimagelocalpath;
-  if (
-    req.files &&
-    Array.isArray(req.files.coverimage) &&
-    req.files.coverimage.length > 0
-  ) {
-    coverimagelocalpath = req.files.coverimage?.[0]?.path;
-  }*/
   if (!avatarlocalpath) {
     throw new ApiError(400, "avatar files is required");
   }
@@ -151,7 +143,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 });
 
 //update cover img
-/*
+
 const updateUserCoverImage = asyncHandler(async (req, res) => {
   const converimagepath = req.file?.body;
   if (!converimagepath) {
@@ -180,7 +172,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, blogs, "Coverimage updated successfully"));
-});*/
+});
 const blogPage = asyncHandler(async (req, res) => {
   res.render("blog");
 });
@@ -219,4 +211,4 @@ export {
   contactUs,
   blogPage,
   contactPage,
-};
+};*/

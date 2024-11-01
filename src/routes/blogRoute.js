@@ -1,4 +1,4 @@
-import { Router } from "express";
+/*import { Router } from "express";
 import {
   deleteBlog,
   updateBlog,
@@ -32,9 +32,9 @@ router.route("/contactpage").get(contactPage);
 router.route("/blogpage").get(blogPage);
 router.route("/:blogId").put(updateBlog);
 router.route("/:blogId").delete(deleteBlog);
-/*router
-  .route("/update-coverimage")
-  .patch(upload.single("coverImage"), updateUserCoverImage);*/
+//router
+  //.route("/update-coverimage")
+  //.patch(upload.single("coverImage"), updateUserCoverImage);
 router.route("/:blogId").patch(upload.single("avatar"), updateUserAvatar);
 
-export default router;
+export default router;*/
