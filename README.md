@@ -70,8 +70,4 @@ Then open:
 
 ## 👩‍💻 Author
 
-**Krati Patel**
-
----
-
-⭐ *A step towards building full-stack e-commerce applications*
+**Trapti Patel**
